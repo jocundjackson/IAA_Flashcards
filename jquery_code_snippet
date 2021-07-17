@@ -1,1 +1,4 @@
-jQuery.each(jQuery("div.entry-content table tbody tr td:odd"), function(i, val){ console.log(jQuery(val).text());})
+var names = []; jQuery.each(jQuery("div.entry-content table tbody tr td:odd"), function(i, val){ names.push(jQuery(val).text().split("\n")[0]);});
+var photos = []; jQuery.each(jQuery("div.entry-content table tbody tr td:even span img"), function(i, val){ photos.push(jQuery(val))});
+
+jQuery("<div id=\"flashcards\" style=\"background:#aaa; width:80%; height:80%; color:black; z-index:9999; position: absolute; left: 10%; top: 50px;\">test box</div>").appendTo("body")
