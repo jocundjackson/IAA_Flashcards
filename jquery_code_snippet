@@ -1,0 +1,1 @@
+jQuery.each(jQuery("div.entry-content table tbody tr td:odd"), function(i, val){ console.log(jQuery(val).text());})
