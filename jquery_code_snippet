@@ -1,27 +1,33 @@
 function flashcard_game(){
-jQuery('#flashcards').remove();
-var names = []; 
-jQuery.each(jQuery("div.entry-content table tbody tr td:odd"), function(i, val){ names.push(jQuery(val).text().split("\n")[0]);});
-var photos = []; 
-jQuery.each(jQuery("div.entry-content table tbody tr td:even span img"), function(i, val){ photos.push(jQuery(val))});
-var rselection = []; 
-var num_of_options = 5; 
-while(rselection.length<num_of_options){var temprand = Math.floor(Math.random()*names.length); if(!rselection.includes(temprand)){rselection.push(temprand)}};
-var correct_value = Math.floor(Math.random()*num_of_options);
-var name_content = ""; 
-for(var i=0; i<num_of_options; i++){
-  name_content += '<input type="radio" class="answer" id="student' + i + '" name="studentselection" value="';
-  if(i != correct_value) name_content += 'in';
-  name_content += 'correct" onclick="check_answer()" /> <label for="student' + i + '">' + names[rselection[i]] + '</label><br/>';
-}
+    jQuery('#flashcards').remove();
+    var names = []; 
+    jQuery.each(jQuery("div.entry-content table tbody tr td:odd"), function(i, val){ names.push(jQuery(val).text().split("\n")[0]);});
+    var photos = []; 
+    jQuery.each(jQuery("div.entry-content table tbody tr td:even span img"), function(i, val){ photos.push(jQuery(val))});
+    var rselection = []; 
+    var num_of_options = 5; 
+    while(rselection.length<num_of_options){
+        var temprand = Math.floor(Math.random()*names.length); 
+        if(!rselection.includes(temprand)){
+            rselection.push(temprand)
+        }
+    };
+    var correct_value = Math.floor(Math.random()*num_of_options);
+    var name_content = ""; 
+    for(var i=0; i<num_of_options; i++){
+        name_content += '<input type="radio" class="answer" id="student' + i + '" name="studentselection" value="';
+        if(i != correct_value){
+            name_content += 'in'
+        };
+        name_content += 'correct" onclick="check_answer()" /> <label for="student' + i + '">' + names[rselection[i]] + '</label><br/>';
+    }
 
-jQuery('<div id="flashcards" style="background:#ccc; min-width:80%; min-height:30em; padding-left:5em; padding-top: .5em; height:80%; color:black; z-index:9999; position: absolute; left: 10%; top: 50px;">\
-<img src=' + photos[rselection[correct_value]][0].currentSrc + ' height="250em" width="250em">\
-<form>' + name_content + '<input type="button" onclick="flashcard_game()" value="Play Again!">\
-</form>\
-</div>').appendTo('body');
+    jQuery('<div id="flashcards" style="background:#ccc; min-width:80%; min-height:30em; padding-left:5em; padding-top: .5em; height:80%; color:black; z-index:9999; position: absolute; left: 10%; top: 50px;">\
+    <img src=' + photos[rselection[correct_value]][0].currentSrc + ' height="250em" width="250em">\
+    <form>' + name_content + '<input type="button" onclick="flashcard_game()" value="Play Again!">\
+    </form>\
+    </div>').appendTo('body');
 }
-
 function check_answer(){
     jQuery(".answer[value=correct]").next().css({backgroundColor: "#00ff00"})
 }
