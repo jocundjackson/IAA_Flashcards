@@ -1,4 +1,4 @@
-function flashcard_game(){
+function flashcard_game(mask_mode){
     jQuery('#flashcards').remove();
     var names = []; 
     jQuery.each(jQuery("div.entry-content table tbody tr td:odd"), function(i, val){ names.push(jQuery(val).text().split("\n")[0]);});
@@ -25,8 +25,13 @@ function flashcard_game(){
     jQuery('<div id="flashcards" style="background:#ccc; min-width:80%; min-height:30em; padding-left:5em; padding-top: .5em; height:80%; color:black; z-index:9999; position: absolute; left: 10%; top: 50px;">\
     <img src=' + photos[rselection[correct_value]][0].currentSrc + ' height="250em" width="250em">\
     <form>' + name_content + '<input type="button" onclick="flashcard_game()" value="Play Again!">\
+    <input type="button" onclick="flashcard_game(true)" value="Play Mask Mode!">\
     </form>\
     </div>').appendTo('body');
+
+    if(mask_mode){
+        jQuery("#flashcards").prepend('<div id="fauxmask"></div>'); jQuery("#fauxmask").css({background: "#000", height: "9em", width: "16.7em", zindex: "99999", display: "block", position: "absolute", top: "8.2em"})
+    }
 }
 function check_answer(){
     jQuery(".answer[value=correct]").next().css({backgroundColor: "#00ff00"})
