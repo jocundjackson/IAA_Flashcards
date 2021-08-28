@@ -1,3 +1,5 @@
+function flashcard_game(){
+jQuery('#flashcards').remove();
 var names = []; 
 jQuery.each(jQuery("div.entry-content table tbody tr td:odd"), function(i, val){ names.push(jQuery(val).text().split("\n")[0]);});
 var photos = []; 
@@ -8,22 +10,20 @@ while(rselection.length<num_of_options){var temprand = Math.floor(Math.random()*
 var correct_value = Math.floor(Math.random()*num_of_options);
 var name_content = ""; 
 for(var i=0; i<num_of_options; i++){
-  name_content += '<input type="radio" id="student' + i + '" name="' + names[rselection[i]] + '"';
-  if(i == correct_value){
-      name_content += 'value="correct">';
-    }
-  else{ 
-      name_content += 'value="incorrect"';
-}
-  name_content += '<label for="student' + i + '">' + names[rselection[i]] + '</label><br/>';
+  name_content += '<input type="radio" class="answer" id="student' + i + '" name="studentselection" value="';
+  if(i != correct_value) name_content += 'in';
+  name_content += 'correct" onclick="check_answer()" /> <label for="student' + i + '">' + names[rselection[i]] + '</label><br/>';
 }
 
 jQuery('<div id="flashcards" style="background:#ccc; min-width:80%; min-height:30em; padding-left:5em; padding-top: .5em; height:80%; color:black; z-index:9999; position: absolute; left: 10%; top: 50px;">\
 <img src=' + photos[rselection[correct_value]][0].currentSrc + ' height="250em" width="250em">\
-<form>' + name_content + '<input type="button" onclick="check_answer()" value="Check Answer!">\
+<form>' + name_content + '<input type="button" onclick="flashcard_game()" value="Play Again!">\
 </form>\
 </div>').appendTo('body');
+}
 
 function check_answer(){
-    
+    jQuery(".answer[value=correct]").next().css({backgroundColor: "#00ff00"})
 }
+
+flashcard_game()
