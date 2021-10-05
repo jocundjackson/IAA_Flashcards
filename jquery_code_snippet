@@ -1,20 +1,24 @@
 function flashcard_game(mask_mode){
     jQuery('#flashcards').remove();
     var names = []; 
-    jQuery.each(jQuery("div.entry-content table tbody tr td:odd"), function(i, val){ names.push(jQuery(val).text().split("\n")[0]);});
+    jQuery.each(jQuery("div.entry-content table tbody tr td:odd"), function(i, val){ 
+        names.push(jQuery(val).text().split("\n")[0]);
+    });
     var photos = []; 
-    jQuery.each(jQuery("div.entry-content table tbody tr td:even span img"), function(i, val){ photos.push(jQuery(val))});
+    jQuery.each(jQuery("div.entry-content table tbody tr td:even span img"), function(i, val){ 
+        photos.push(jQuery(val))
+    });
     var rselection = []; 
     var num_of_options = 5; 
-    while(rselection.length<num_of_options){
-        var temprand = Math.floor(Math.random()*names.length); 
+    while(rselection.length < num_of_options){
+        var temprand = Math.floor(Math.random() * names.length); 
         if(!rselection.includes(temprand)){
             rselection.push(temprand)
         }
     };
-    var correct_value = Math.floor(Math.random()*num_of_options);
+    var correct_value = Math.floor(Math.random() * num_of_options);
     var name_content = ""; 
-    for(var i=0; i<num_of_options; i++){
+    for(var i=0; i < num_of_options; i++){
         name_content += '<input type="radio" class="answer" id="student' + i + '" name="studentselection" value="';
         if(i != correct_value){
             name_content += 'in'
@@ -30,7 +34,8 @@ function flashcard_game(mask_mode){
     </div>').appendTo('body');
 
     if(mask_mode){
-        jQuery("#flashcards").prepend('<div id="fauxmask"></div>'); jQuery("#fauxmask").css({background: "#000", height: "9em", width: "16.7em", zindex: "99999", display: "block", position: "absolute", top: "8.2em"})
+        jQuery("#flashcards").prepend('<div id="fauxmask"></div>'); 
+        jQuery("#fauxmask").css({background: "#000", height: "9em", width: "16.7em", zindex: "99999", display: "block", position: "absolute", top: "8.2em"})
     }
 }
 function check_answer(){
